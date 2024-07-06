@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 export default function FormRegistro() {
@@ -13,12 +13,11 @@ export default function FormRegistro() {
     const urlBackend = 'http://ranb-taskmanager.000webhostapp.com/public/';
 
     const validarUsario = () => {
-        axios.get(urlBackend+'api/usuarios')
+        axios.get(urlBackend + 'api/usuarios')
             .then((respuesta) => {
                 console.log(respuesta.data);
-                console.log(email);
                 (respuesta.data).map(user => {
-                    if (user.correo_usuario === email){
+                    if (user.correo_usuario === email) {
                         setUsuario(true)
                     }
                 })
@@ -30,19 +29,23 @@ export default function FormRegistro() {
 
     const crearUsuario = (ev) => {
         ev.preventDefault();
-        if (nombre.trim()=="" || apellido.trim()=="" || tel.trim()=="" 
-        || dir.trim()=="" || password.trim()=="" || email.trim()=="") {
-			alert("Rellene todos los campos")
-			return
-		}
+        if (nombre.trim() == "" || apellido.trim() == "" || tel.trim() == ""
+            || dir.trim() == "" || password.trim() == "" || email.trim() == "") {
+            alert("Rellene todos los campos")
+            return
+        }
         validarUsario();
-        if (usuario==false) {
+        if (usuario == false) {
             const datos = {
                 nombre_usuario: nombre, apellido_usuario: apellido,
                 telefono_usuario: tel, direccion_usuario: dir,
                 correo_usuario: email, password_usuario: password
             }
-            axios.post(urlBackend+'api/usuarios', datos)
+            axios.post(urlBackend+'api/usuarios', JSON.stringify(datos), {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
                 .then((respuesta) => {
                     console.log(respuesta.data);
                     alert("Usuario registrado");
@@ -55,6 +58,7 @@ export default function FormRegistro() {
             alert("Usuario ya está registrado");
         }
     }
+
 
     return (
         <div className="col-lg-6 mb-5 mb-lg-0">

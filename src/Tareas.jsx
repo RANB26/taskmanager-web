@@ -55,7 +55,7 @@ export default function Tareas() {
 	/** Acciones **/
 	//Buscar tareas
 	const buscarTareas = () => {
-		axios.get(urlBackend+'api/tareas')
+		axios.get(urlBackend + 'api/tareas')
 			.then((respuesta) => {
 				console.log(respuesta.data);
 				const tareasUsu = [];
@@ -78,7 +78,11 @@ export default function Tareas() {
 			alert("Rellene todos los campos")
 			return
 		}
-		axios.post(urlBackend+'api/tareas', tarea)
+		axios.post(urlBackend + 'api/tareas', tarea, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
 			.then((respuesta) => {
 				console.log(respuesta.data)
 				buscarTareas();
@@ -96,7 +100,11 @@ export default function Tareas() {
 			alert("Rellene todos los campos")
 			return
 		}
-		axios.put(urlBackend+'api/tareas/' + tareaEditar.id_tarea, tareaEditar)
+		axios.put(urlBackend+'api/tareas/'+tareaEditar.id_tarea, tareaEditar, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
 			.then((respuesta) => {
 				console.log(respuesta.data)
 				buscarTareas();
