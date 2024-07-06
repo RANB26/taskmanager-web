@@ -1,0 +1,6 @@
+- npm i react-router-dom
+- npm install bootstrap
+- npm install boxicons
+- npm i bootstrap-icons
+- npm install jquery
+- npm install axios
